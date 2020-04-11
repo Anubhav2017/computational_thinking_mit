@@ -1,12 +1,8 @@
-a=2
-b=5
+import random
 
-def change(a):
-    a=[10]
+# Code Sample A
+mylist = []
 
-if __name__=="__main__":
-    # a=1
-    # b=5
-    a=[5,6]
-    change(a)
-    print(a)
+random.seed(0)
+for i in range(10):
+    print(random.randint(1,10))
