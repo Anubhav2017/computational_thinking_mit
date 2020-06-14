@@ -1,14 +1,4 @@
-def getIndex(num, choices):
-    for i in range(len(choices)):
-        if choices[i] == num:
-            return i 
-
-def doesExist(choices,total):
-    if len(choices) == 0
-    max=max(choices)
-
-
-
+import numpy as np
 
 
 def find_combination(choices, total):
@@ -26,6 +16,32 @@ def find_combination(choices, total):
     pick the one that gives sum(result*choices) closest 
     to total without going over.
     """
+    numcomb= 2**(len(choices))
+    nums=[]
+    sumresults=[]
 
-    while(True):
-        maxnum=max(choices) 
+    for i in range(numcomb):
+        arr=np.asarray([int(x) for x in bin(i)[2:].zfill(len(choices))])
+        
+        num1=sum(arr*np.asarray(choices))
+        
+        nums.append(total-num1)
+        sumresults.append(sum(arr))
+    
+    minimum=min([x for x in nums if x>=0])
+
+
+    minindices= [i for i in range(len(nums)) if nums[i]==minimum]
+
+
+    arrsums=[sumresults[i] for i in minindices]
+
+    
+    ind=minindices[arrsums.index(min(arrsums))]
+
+
+
+    return np.asarray([int(x) for x in bin(ind)[2:].zfill(len(choices))])
+
+
+print(find_combination([1, 81, 3, 102, 450, 10], 9))

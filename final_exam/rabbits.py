@@ -1,10 +1,10 @@
 import random
-import pylab
+import matplotlib.pyplot as plt
 import numpy as np
 # Global Variables
 MAXRABBITPOP = 1000
-CURRENTRABBITPOP = 500
-CURRENTFOXPOP = 30
+CURRENTRABBITPOP = 50
+CURRENTFOXPOP = 300
 
 def rabbitGrowth():
     """ 
@@ -56,53 +56,50 @@ def foxGrowth():
     # you need these lines for modifying global variables
     global CURRENTRABBITPOP
     global CURRENTFOXPOP
-
     if CURRENTFOXPOP < 10:
       return
 
     incfox=0
     decrabbit=0
 
-    # TO DO
+  
     if CURRENTRABBITPOP > 10:
 
       for _ in range(CURRENTFOXPOP):
-        num=random.random()
+        num1=random.random()
         probeat= float(CURRENTRABBITPOP)/float(MAXRABBITPOP)
-        print(probeat)
-        print(num)
 
-        if num < probeat:
-          
+        if num1 < probeat:
+
           decrabbit +=1
-          num= random.random()
-          print(num)
-          if num < 0.3333333:
+          num2= random.random()
+        
+          if num2 < 0.3333333:
             incfox +=1
 
         else:
 
           for _ in range(CURRENTFOXPOP):
             if CURRENTFOXPOP > 10:
-              num=random.random()
-              if num < 0.1:
+              num3=random.random()
+              if num3 < 0.1:
                 incfox -=1
     
     else:
       if CURRENTFOXPOP > 10:
-        num=random.random()
-        if num < 0.1:
+        num3=random.random()
+        if num3 < 0.1:
           incfox -=1
 
-    if CURRENTFOXPOP+incfox <10:
-      CURRENTFOXPOP =10
-    else:
+    if CURRENTFOXPOP + incfox > 10:
       CURRENTFOXPOP+=incfox
+    
     
     if CURRENTRABBITPOP-decrabbit <10:
       CURRENTRABBITPOP = 10
     else:
       CURRENTRABBITPOP-= decrabbit
+
 
       
     
@@ -131,7 +128,23 @@ def runSimulation(numSteps):
     return (rabbit_populations, fox_populations)
 
 
-rabbit_populations, fox_populations=runSimulation(200)
 
+# foxGrowth()
+# print(CURRENTFOXPOP)
+# print(CURRENTRABBITPOP)
+# foxGrowth()
+# print(CURRENTFOXPOP)
+# print(CURRENTRABBITPOP)
+
+rabbit_populations, fox_populations=runSimulation(200)
+print(rabbit_populations)
+print(fox_populations)
 coeffrabbit = np.polyfit(range(len(rabbit_populations)), rabbit_populations, 2)
 plt.plot(np.polyval(coeffrabbit, range(len(rabbit_populations))))
+plt.legend('rabbit')
+
+coefffox = np.polyfit(range(len(fox_populations)), fox_populations, 2)
+plt.plot(np.polyval(coefffox, range(len(fox_populations))))
+plt.legend('fox')
+
+plt.show()
